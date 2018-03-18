@@ -9,7 +9,7 @@ import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.common.xcontent.XContentBuilder;
 import org.elasticsearch.common.xcontent.XContentFactory;
 import org.elasticsearch.common.xcontent.XContentParser;
@@ -116,14 +116,14 @@ public class ElasticsearchDocumentWriter implements ItemWriter<Document> {
 
                 .build();
             client = new PreBuiltXPackTransportClient(settings)
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(
+                    .addTransportAddress(new TransportAddress(InetAddress.getByName(
                             clusterHost),
                             port));
         } else {
             settings = Settings.builder()
                     .put("cluster.name", clusterName).build();
             client = new PreBuiltTransportClient(settings)
-                    .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(
+                    .addTransportAddress(new TransportAddress(InetAddress.getByName(
                             clusterHost),
                             port));
         }
@@ -177,7 +177,7 @@ public class ElasticsearchDocumentWriter implements ItemWriter<Document> {
             }
         }
         LOG.info("{} documents indexed into ElasticSearch in {} ms", response.getItems().length,
-                response.getTookInMillis());
+                response.getIngestTookInMillis());
     }
 
 }

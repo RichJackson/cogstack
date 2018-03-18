@@ -39,6 +39,8 @@ import static org.junit.Assert.assertEquals;
 @TestPropertySource({
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
+//        "classpath:sql_server_test.properties",
+//        "classpath:sql_server_db.properties",
         "classpath:reindex.properties",
         "classpath:jms.properties",
         "classpath:noScheduling.properties",
@@ -53,6 +55,7 @@ import static org.junit.Assert.assertEquals;
         listeners = ReindexTestExecutionListener.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @ActiveProfiles({"basic","localPartitioning","elasticsearchRest","primaryKeyPartition","jdbc_in","jdbc_out","postgres"})
+//@ActiveProfiles({"basic","localPartitioning","elasticsearch","primaryKeyPartition","jdbc_in","jdbc_out","sqlserver"})
 public class ReindexWithoutScheduling {
 
     @Autowired

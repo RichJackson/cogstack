@@ -65,8 +65,6 @@ import java.util.Arrays;
 /**
  *
  * @author rich
- *
- * This class is the most important one in configuring how job pipelines are put together
  */
 
 @Configuration
@@ -86,10 +84,8 @@ import java.util.Arrays;
 public class JobConfiguration {
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(JobConfiguration.class);
 
-    /**
-     * Configure order of processoer and writer composites here.
-     * @return a composite item processor
-     */
+    ///Configure order of processoer and writer composites here
+
     @Bean
     @Qualifier("compositeItemProcessorr")
     public ItemProcessor<Document,Document> compositeItemProcessor() {
@@ -112,11 +108,6 @@ public class JobConfiguration {
         return processor;
     }
 
-    /**
-     * Configure what writers should be used here. If beans are correctly wired, they will be
-     * executed in the order specified here
-     * @return a composite Item writer
-     */
     @Bean
     @Qualifier("compositeItemWriter")
     public ItemWriter<Document> compositeESandJdbcItemWriter() {
@@ -140,11 +131,11 @@ public class JobConfiguration {
     }
 
     /*
-
-
+        
+    
     *******************************************COMMON BEANS
-
-
+        
+    
     */
     //required to process placeholder values in annotations, e.g. scheduler cron
     @Bean
@@ -252,41 +243,36 @@ public class JobConfiguration {
     }
 
 
-    /**
-     * execute scripts if required to cnfigure the JDBC session, in order to do things like unify date formats
-     * across DB implementations etc
-     * @param mainDatasource A HikariDatasource to be configured
-     * @param driver the name of the direver to be configured
-     */
+
     private void executeSessionScripts(HikariDataSource mainDatasource, String driver) {
         //temp datasource required to get type
         DatabaseType type = null;
 
-        switch (driver) {
-            case "DERBY":
-                break;
-            case "DB2":
-                break;
-            case "DB2ZOS":
-                break;
-            case "HSQL":
-                break;
-            case "com.microsoft.sqlserver.jdbc.SQLServerDriver":
-                mainDatasource.setConnectionInitSql("SET DATEFORMAT ymd;");
-                break;
-            case "MYSQL":
-                break;
-            case "ORACLE":
-                break;
-            case "POSTGRES":
-                break;
-            case "SYBASE":
-                break;
-            case "H2":
-                break;
-            case "SQLITE":
-                break;
-        }
+            switch (driver) {
+                case "DERBY":
+                    break;
+                case "DB2":
+                    break;
+                case "DB2ZOS":
+                    break;
+                case "HSQL":
+                    break;
+                case "com.microsoft.sqlserver.jdbc.SQLServerDriver":
+                    mainDatasource.setConnectionInitSql("SET DATEFORMAT ymd;");
+                    break;
+                case "MYSQL":
+                    break;
+                case "ORACLE":
+                    break;
+                case "POSTGRES":
+                    break;
+                case "SYBASE":
+                    break;
+                case "H2":
+                    break;
+                case "SQLITE":
+                    break;
+            }
 
     }
 
@@ -294,6 +280,9 @@ public class JobConfiguration {
     public BeanFactoryStepLocator stepLocator(){
         return new BeanFactoryStepLocator();
     }
+
+
+
 
 
     @Bean
@@ -321,12 +310,12 @@ public class JobConfiguration {
     @Bean
     @Qualifier("compositeSlaveStep")
     public Step compositeSlaveStep(
-            ItemReader<Document> reader,
+                        ItemReader<Document> reader,
             @Qualifier("compositeItemProcessor") ItemProcessor<Document, Document> processor,
             @Qualifier("compositeESandJdbcItemWriter") ItemWriter<Document> writer,
             @Qualifier("slaveTaskExecutor")TaskExecutor taskExecutor,
             @Qualifier("nonFatalExceptionItemProcessorListener")
-                    ItemProcessListener nonFatalExceptionItemProcessorListener,
+                                ItemProcessListener nonFatalExceptionItemProcessorListener,
             //@Qualifier("targetDatasourceTransactionManager")PlatformTransactionManager manager,
             StepBuilderFactory stepBuilderFactory
     ) {
@@ -339,10 +328,10 @@ public class JobConfiguration {
                 .skipLimit(skipLimit)
                 .skip(WebserviceProcessingFailedException.class);
         if (env.acceptsProfiles("jdbc_out_map")) {
-            stepBuilder = stepBuilder.skip(InvalidDataAccessApiUsageException.class);
+          stepBuilder = stepBuilder.skip(InvalidDataAccessApiUsageException.class);
         }
         return stepBuilder.noSkip(Exception.class)
-                //       .listener(nonFatalExceptionItemProcessorListener)
+         //       .listener(nonFatalExceptionItemProcessorListener)
                 .listener(new SkipListener())
                 .taskExecutor(taskExecutor)
                 .build();

@@ -37,10 +37,6 @@ import uk.ac.kcl.listeners.JobCompleteNotificationListener;
 /**
  *
  * @author King's College London, Richard Jackson <richgjackson@gmail.com>
- *     an example configuration for using local processing
- *
- *
- *
  */
 @Profile("localPartitioning")
 @ComponentScan({"uk.ac.kcl.partitioners",

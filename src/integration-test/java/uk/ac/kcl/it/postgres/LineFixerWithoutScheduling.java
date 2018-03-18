@@ -43,6 +43,8 @@ import static org.junit.Assert.assertEquals;
 @TestPropertySource({
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
+//        "classpath:sql_server_test.properties",
+//        "classpath:sql_server_db.properties",
         "classpath:jms.properties",
         "classpath:noScheduling.properties",
         "classpath:elasticsearch.properties",
@@ -56,6 +58,7 @@ import static org.junit.Assert.assertEquals;
         listeners = DbLineFixerTestExecutionListener.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @ActiveProfiles({"dBLineFixer","localPartitioning","jdbc_in","jdbc_out","elasticsearchRest","primaryKeyPartition","postgres"})
+//@ActiveProfiles({"dBLineFixer","localPartitioning","jdbc_in","jdbc_out","elasticsearch","primaryKeyPartition","sqlserver"})
 public class LineFixerWithoutScheduling {
 
     @Autowired

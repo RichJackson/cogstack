@@ -320,7 +320,12 @@ Some of the advancements in cogstack:
  5. Remote partitioning via an ActiveMQ JMS server, for complete scalability
  6. Built in job scheduler to enable near real time synchronisation with a database
 
-Questions? Want to help? Drop me a message: richgjackson@gmail.com
+Questions? Want to help? Drop me a message: lucy.o'neill@kcl.ac.uk (020 7848 0924)
 
 ## Papers
-CogStack - Experiences Of Deploying Integrated Information Retrieval And Extraction Services In A Large National Health Service Foundation Trust Hospital, *Richard Jackson, Ismail Emre Kartoglu, Asha Agrawal, Kenneth Lui, Honghan Wu, Tudor Groza, Angus Roberts, Genevieve Gorrell, Xingyi Song, Damian Lewsley, Doug Northwood, Amos Folarin, Clive Stringer, Robert Stewart, Richard Dobson* https://www.biorxiv.org/content/early/2017/10/05/123299
+CogStack - Experiences Of Deploying Integrated Information Retrieval And Extraction Services In A Large National Health Service Foundation Trust Hospital, *Richard Jackson, Asha Agrawal, Kenneth Lui, Amos Folarin, Honghan Wu, Tudor Groza, Angus Roberts, Genevieve Gorrell, Xingyi Song, Damian Lewsley, Doug Northwood, Clive Stringer, Robert Stewart, Richard Dobson* http://biorxiv.org/content/early/2017/04/02/123299
+
+
+
+![Cogstack Pipeline](fig/KCL_boxed_redcmyk_A4-002-3.gif) ![Cogstack Pipeline](fig/logo-nhs.png) ![Cogstack Pipeline](fig/dnmkjemkekmbnegf.png) ![Cogstack Pipeline](fig/chdabdkadmelbenn.png) ![Cogstack Pipeline](fig/cti-banner.jpg) ![Cogstack Pipeline](fig/igimnobhggalgaln.png) ![Cogstack Pipeline](fig/kmlbdnlfopmabpbk.png) ![Cogstack Pipeline](fig/bojpdbeeffipbedm.png)
+

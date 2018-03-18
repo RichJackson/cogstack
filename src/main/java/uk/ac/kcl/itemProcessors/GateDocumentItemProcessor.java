@@ -35,12 +35,6 @@ import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.*;
 
-
-/**
- * A generic gate service. Note in my experience, it's better to hand off more complex processing tasks to a
- * webservice, rather than risk brining down the JVM if things go badly! See Webservice DocumentItemProcessor for
- * an example fo how this might be done
- */
 @Profile("gate")
 @Service("gateDocumentItemProcessor")
 @ComponentScan("uk.ac.kcl.service")

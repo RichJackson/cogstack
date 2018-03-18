@@ -33,11 +33,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * This bean attempts to de-identify text strings using a series of algorithms as described by Ismail Kartoglu
- * in https://zenodo.org/record/32609
- *
- */
 @Profile("deid")
 @Service("deIdDocumentItemProcessor")
 @ComponentScan("uk.ac.kcl.service")

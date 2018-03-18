@@ -21,14 +21,14 @@ public class SkipListener extends SkipListenerSupport<Document, Document> {
     @Override
     public void onSkipInProcess(Document item, java.lang.Throwable t) {
         log.warn("SkipListener: Document PK: {} has been skipped in process() due to {}",
-                item.getPrimaryKeyFieldValue(),
-                t.getClass().getSimpleName());
+                 item.getPrimaryKeyFieldValue(),
+                 t.getClass().getSimpleName());
     }
 
     @Override
     public void onSkipInWrite(Document item, java.lang.Throwable t) {
         log.warn("SkipListener: Document PK: {} has been skipped in write() due to {}",
-                item.getPrimaryKeyFieldValue(),
-                t.getClass().getSimpleName());
+                 item.getPrimaryKeyFieldValue(),
+                 t.getClass().getSimpleName());
     }
 }

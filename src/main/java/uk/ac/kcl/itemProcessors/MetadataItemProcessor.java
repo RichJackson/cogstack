@@ -24,9 +24,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PostConstruct;
 
-/**
- * adds metadata from  Tesseract OCR. By Kennith Lui
- */
+
 @Profile("metadata")
 @Service("metadataItemProcessor")
 public class MetadataItemProcessor extends TLItemProcessor implements ItemProcessor<Document, Document> {

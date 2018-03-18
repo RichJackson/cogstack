@@ -44,6 +44,8 @@ import static org.junit.Assert.assertTrue;
 @TestPropertySource({
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
+//        "classpath:sql_server_test.properties",
+//        "classpath:sql_server_db.properties",
         "classpath:jms.properties",
         "classpath:noScheduling.properties",
         "classpath:elasticsearch.properties",
@@ -58,6 +60,7 @@ import static org.junit.Assert.assertTrue;
         listeners = BasicTestExecutionListenerLargeInsert.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @ActiveProfiles({"webservice","basic","localPartitioning","jdbc_in","jdbc_out","elasticsearchRest","primaryKeyPartition","postgres"})
+//@ActiveProfiles({"webservice","basic","localPartitioning","jdbc_in","jdbc_out","elasticsearch","primaryKeyPartition","sqlserver"})
 public class BioyodieWebserviceWithoutScheduling {
 
     @Autowired

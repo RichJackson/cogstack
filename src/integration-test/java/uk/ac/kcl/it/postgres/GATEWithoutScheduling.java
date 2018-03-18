@@ -43,6 +43,8 @@ import static org.junit.Assert.assertEquals;
 @TestPropertySource({
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
+//        "classpath:sql_server_test.properties",
+//        "classpath:sql_server_db.properties",
         "classpath:jms.properties",
         "classpath:gate.properties",
         "classpath:noScheduling.properties",
@@ -57,6 +59,7 @@ import static org.junit.Assert.assertEquals;
         listeners = GateTestExecutionListener.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @ActiveProfiles({"gate","localPartitioning","jdbc_in","jdbc_out","elasticsearchRest","primaryKeyPartition","postgres"})
+//@ActiveProfiles({"gate","localPartitioning","jdbc_in","jdbc_out","elasticsearch","primaryKeyPartition","sqlserver"})
 public class GATEWithoutScheduling {
 
     @Autowired

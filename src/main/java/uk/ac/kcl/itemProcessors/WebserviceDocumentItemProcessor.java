@@ -37,9 +37,6 @@ import uk.ac.kcl.model.Document;
 import javax.annotation.PostConstruct;
 import java.util.*;
 
-/**
- * call generic web services and update the Document model with the results
- */
 @Profile("webservice")
 @Service("webserviceDocumentItemProcessor")
 @ComponentScan("uk.ac.kcl.service")
