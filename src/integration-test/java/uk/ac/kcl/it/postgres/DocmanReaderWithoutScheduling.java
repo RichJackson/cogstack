@@ -44,8 +44,6 @@ import static org.junit.Assert.assertTrue;
 @TestPropertySource({
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
-//        "classpath:sql_server_test.properties",
-//        "classpath:sql_server_db.properties",
         "classpath:jms.properties",
         "classpath:noScheduling.properties",
         "classpath:elasticsearch.properties",
@@ -60,7 +58,6 @@ import static org.junit.Assert.assertTrue;
         listeners = DocmanReaderTestExecutionListener.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @ActiveProfiles({"docman","localPartitioning","jdbc_in","jdbc_out","elasticsearchRest","primaryKeyPartition","postgres","tika"})
-//@ActiveProfiles({"biolark","basic","localPartitioning","jdbc_in","jdbc_out","elasticsearch","primaryKeyPartition","sqlserver"})
 public class DocmanReaderWithoutScheduling {
 
     @Autowired

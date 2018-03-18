@@ -44,6 +44,10 @@ import javax.annotation.PostConstruct;
 /**
  *
  * @author rich
+ *
+ * Extracts text form various file formats with Apache Tika
+ *
+ *
  */
 @Profile("tika")
 @Service("tikaDocumentItemProcessor")

@@ -38,6 +38,7 @@ import uk.ac.kcl.listeners.JobCompleteNotificationListener;
 /**
  *
  * @author King's College London, Richard Jackson <richgjackson@gmail.com>
+ *     an example configuration for using remote processing. See spring batch docs for details
  */
 @Profile("remotePartitioning")
 @ImportResource({"classpath:spring-master.xml","classpath:spring-slave.xml"})

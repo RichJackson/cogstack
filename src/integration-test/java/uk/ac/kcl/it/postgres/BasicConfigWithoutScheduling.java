@@ -40,8 +40,6 @@ import static org.junit.Assert.assertEquals;
         "classpath:jms.properties",
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
-//        "classpath:sql_server_test.properties",
-//        "classpath:sql_server_db.properties",
         "classpath:noScheduling.properties",
         "classpath:elasticsearch.properties",
         "classpath:jobAndStep.properties"})

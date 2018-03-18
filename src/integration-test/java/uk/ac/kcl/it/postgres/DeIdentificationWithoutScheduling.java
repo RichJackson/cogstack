@@ -43,8 +43,6 @@ import static org.junit.Assert.assertEquals;
 @TestPropertySource({
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
-//        "classpath:sql_server_test.properties",
-//        "classpath:sql_server_db.properties",
 //        "classpath:jms.properties",
         "classpath:noScheduling.properties",
         "classpath:gate.properties",
@@ -60,7 +58,6 @@ import static org.junit.Assert.assertEquals;
         listeners = DeidTestExecutionListener.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @ActiveProfiles({"deid","localPartitioning","jdbc_in","jdbc_out","elasticsearchRest","postgres"})
-//@ActiveProfiles({"deid","basic","localPartitioning","jdbc_in","jdbc_out","elasticsearch","primaryKeyPartition","sqlserver"})
 public class DeIdentificationWithoutScheduling {
 
     @Autowired

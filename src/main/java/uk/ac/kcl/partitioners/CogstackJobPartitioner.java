@@ -29,6 +29,10 @@ import java.util.Map;
 
 /**
  * Created by rich on 03/06/16.
+ *
+ * An extremely complex task that attempts to deal with the problems of real time dataabse processing!
+ * better implementations almost certainly possible...
+ *
  */
 @Service("cogstackPartitioner")
 @ComponentScan("uk.ac.kcl.listeners")
@@ -110,6 +114,11 @@ public  class CogstackJobPartitioner implements Partitioner {
         return result;
     }
 
+    /**
+     * get the execution contexts for a real time job
+     * @param gridSize the number of partitions that should be generated
+     * @return a map of partion name and the ExecutionContexts to be used
+     */
     private Map<String, ExecutionContext> configureForPKTimeStampPartitions(int gridSize) {
         Map<String, ExecutionContext> result;
         ScheduledPartitionParams params;

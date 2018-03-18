@@ -31,6 +31,9 @@ import java.util.Set;
 
 /**
  * Created by rich on 14/06/16.
+ *
+ * This bean is responsible for a controlled shutdown when the process is sent a stop signal
+ *
  */
 @Service
 public class CleanupBean implements SmartLifecycle, ApplicationContextAware {

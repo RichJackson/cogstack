@@ -40,6 +40,10 @@ import java.util.TreeMap;
 /**
  *
  * @author rich
+ *
+ * This bean converts document contents spread across multiple database rows into a single text string. I
+ * guess some db systems must have been pretty old to have had to store data in this way!
+ *
  */
 @Profile("dBLineFixer")
 @Service("dBLineFixerItemProcessor")

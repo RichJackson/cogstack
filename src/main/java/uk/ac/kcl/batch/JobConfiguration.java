@@ -65,6 +65,8 @@ import java.util.Arrays;
 /**
  *
  * @author rich
+ *
+ * This class is the most important one in configuring how job pipelines are put together
  */
 
 @Configuration
@@ -84,8 +86,10 @@ import java.util.Arrays;
 public class JobConfiguration {
     private static final org.slf4j.Logger LOG = LoggerFactory.getLogger(JobConfiguration.class);
 
-    ///Configure order of processoer and writer composites here
-
+    /**
+     * Configure order of processoer and writer composites here.
+     * @return a composite item processor
+     */
     @Bean
     @Qualifier("compositeItemProcessorr")
     public ItemProcessor<Document,Document> compositeItemProcessor() {
@@ -108,6 +112,11 @@ public class JobConfiguration {
         return processor;
     }
 
+    /**
+     * Configure what writers should be used here. If beans are correctly wired, they will be
+     * executed in the order specified here
+     * @return a composite Item writer
+     */
     @Bean
     @Qualifier("compositeItemWriter")
     public ItemWriter<Document> compositeESandJdbcItemWriter() {
@@ -243,7 +252,12 @@ public class JobConfiguration {
     }
 
 
-
+    /**
+     * execute scripts if required to cnfigure the JDBC session, in order to do things like unify date formats
+     * across DB implementations etc
+     * @param mainDatasource A HikariDatasource to be configured
+     * @param driver the name of the direver to be configured
+     */
     private void executeSessionScripts(HikariDataSource mainDatasource, String driver) {
         //temp datasource required to get type
         DatabaseType type = null;
@@ -280,9 +294,6 @@ public class JobConfiguration {
     public BeanFactoryStepLocator stepLocator(){
         return new BeanFactoryStepLocator();
     }
-
-
-
 
 
     @Bean

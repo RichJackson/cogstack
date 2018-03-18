@@ -4,6 +4,9 @@ import uk.ac.kcl.model.Document;
 
 /**
  * Created by rich on 25/05/16.
+ * abstract base class you should inherit from
+ *
+ *
  */
 public abstract class TLItemProcessor {
     private String fieldName;

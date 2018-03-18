@@ -73,6 +73,7 @@ import static org.junit.Assert.assertEquals;
         loader = AnnotationConfigContextLoader.class)
 @ActiveProfiles({"deid","localPartitioning","jdbc_in","elasticsearchRest","primaryKeyPartition","postgres"})
 //@ActiveProfiles({"deid","basic","localPartitioning","jdbc","primaryKeyPartition","sqlserver"})
+
 public class ElasticGazetteerAcceptanceTest {
 
     final static Logger logger = Logger.getLogger(ElasticGazetteerAcceptanceTest.class);
@@ -97,6 +98,9 @@ public class ElasticGazetteerAcceptanceTest {
     @Value("#{'${mutatortype:0}'}")
     private int mutatortype;
 
+    /**
+     * perform the acceptance tests to generate results similar to those described in the paper
+     */
     @Test
     public void deidentificationPerformanceTest() {
         dbmsTestUtils.createBasicInputTable();
@@ -162,7 +166,9 @@ public class ElasticGazetteerAcceptanceTest {
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }/**
+ *
+ */
             }
 
             totalTruePositives += truePositives;

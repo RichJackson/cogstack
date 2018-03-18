@@ -39,8 +39,6 @@ import static org.junit.Assert.assertEquals;
 @TestPropertySource({
         "classpath:postgres_test.properties",
         "classpath:postgres_db.properties",
-//        "classpath:sql_server_test.properties",
-//        "classpath:sql_server_db.properties",
 //        "classpath:jms.properties",
         "classpath:scheduling.properties",
         "classpath:elasticsearch.properties",
@@ -54,7 +52,6 @@ import static org.junit.Assert.assertEquals;
         listeners = BasicTestExecutionListenerSmallInsert.class,
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @ActiveProfiles({"basic","localPartitioning","jdbc_in","jdbc_out","elasticsearchRest","postgres"})
-//@ActiveProfiles({"basic","localPartitioning","jdbc_in","jdbc_out","elasticsearch","primaryKeyAndTimeStampPartition","sqlserver"})
 public class BasicConfigWithSchedulingSmallInsert {
 
     @Autowired
