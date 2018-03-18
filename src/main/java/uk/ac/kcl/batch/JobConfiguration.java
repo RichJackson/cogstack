@@ -18,8 +18,8 @@ package uk.ac.kcl.batch;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.slf4j.LoggerFactory;
+import org.springframework.batch.core.ItemProcessListener;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.StepListener;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.StepScope;
@@ -60,6 +60,7 @@ import uk.ac.kcl.utils.LoggerHelper;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -130,11 +131,11 @@ public class JobConfiguration {
     }
 
     /*
-        
-    
+
+
     *******************************************COMMON BEANS
-        
-    
+
+
     */
     //required to process placeholder values in annotations, e.g. scheduler cron
     @Bean
@@ -179,6 +180,10 @@ public class JobConfiguration {
     private Long sourceIdleTimeout;
     @Value("${source.maxLifetime}")
     private Long sourceMaxLifeTime;
+    @Value("${source.leakDetectionThreshold}")
+    private Long sourceLeakDetection;
+    @Value("${source.poolSize}")
+    private Integer sourcePoolSize;
 
 
     @Bean(destroyMethod = "close")
@@ -193,6 +198,14 @@ public class JobConfiguration {
         mainDatasource.setPassword(sourcePassword);
         mainDatasource.setIdleTimeout(sourceIdleTimeout);
         mainDatasource.setMaxLifetime(sourceMaxLifeTime);
+        if (Arrays.asList(this.env.getActiveProfiles()).contains("docman")){
+            mainDatasource.setConnectionTestQuery("show tables");
+        }
+        if (sourcePoolSize > 0){
+            mainDatasource.setMaximumPoolSize(sourcePoolSize);
+        }
+        // set the db connection leak detection time
+        mainDatasource.setLeakDetectionThreshold(sourceLeakDetection);
         return mainDatasource;
     }
 
@@ -235,31 +248,31 @@ public class JobConfiguration {
         //temp datasource required to get type
         DatabaseType type = null;
 
-            switch (driver) {
-                case "DERBY":
-                    break;
-                case "DB2":
-                    break;
-                case "DB2ZOS":
-                    break;
-                case "HSQL":
-                    break;
-                case "com.microsoft.sqlserver.jdbc.SQLServerDriver":
-                    mainDatasource.setConnectionInitSql("SET DATEFORMAT ymd;");
-                    break;
-                case "MYSQL":
-                    break;
-                case "ORACLE":
-                    break;
-                case "POSTGRES":
-                    break;
-                case "SYBASE":
-                    break;
-                case "H2":
-                    break;
-                case "SQLITE":
-                    break;
-            }
+        switch (driver) {
+            case "DERBY":
+                break;
+            case "DB2":
+                break;
+            case "DB2ZOS":
+                break;
+            case "HSQL":
+                break;
+            case "com.microsoft.sqlserver.jdbc.SQLServerDriver":
+                mainDatasource.setConnectionInitSql("SET DATEFORMAT ymd;");
+                break;
+            case "MYSQL":
+                break;
+            case "ORACLE":
+                break;
+            case "POSTGRES":
+                break;
+            case "SYBASE":
+                break;
+            case "H2":
+                break;
+            case "SQLITE":
+                break;
+        }
 
     }
 
@@ -297,11 +310,12 @@ public class JobConfiguration {
     @Bean
     @Qualifier("compositeSlaveStep")
     public Step compositeSlaveStep(
-                        ItemReader<Document> reader,
+            ItemReader<Document> reader,
             @Qualifier("compositeItemProcessor") ItemProcessor<Document, Document> processor,
             @Qualifier("compositeESandJdbcItemWriter") ItemWriter<Document> writer,
             @Qualifier("slaveTaskExecutor")TaskExecutor taskExecutor,
-            @Qualifier("skipListener") SkipListener skipListener,
+            @Qualifier("nonFatalExceptionItemProcessorListener")
+                    ItemProcessListener nonFatalExceptionItemProcessorListener,
             //@Qualifier("targetDatasourceTransactionManager")PlatformTransactionManager manager,
             StepBuilderFactory stepBuilderFactory
     ) {
@@ -313,19 +327,12 @@ public class JobConfiguration {
                 .faultTolerant()
                 .skipLimit(skipLimit)
                 .skip(WebserviceProcessingFailedException.class);
-
         if (env.acceptsProfiles("jdbc_out_map")) {
-          stepBuilder = stepBuilder.skip(InvalidDataAccessApiUsageException.class);
+            stepBuilder = stepBuilder.skip(InvalidDataAccessApiUsageException.class);
         }
-
-        if (env.acceptsProfiles("placeholderForFailedDoc")) {
-          // May need to use a very big skipLimit to achieve the desired results
-          stepBuilder = stepBuilder.skip(Exception.class);
-        } else {
-          stepBuilder = stepBuilder.noSkip(Exception.class);
-        }
-
-        return stepBuilder.listener(skipListener)
+        return stepBuilder.noSkip(Exception.class)
+                //       .listener(nonFatalExceptionItemProcessorListener)
+                .listener(new SkipListener())
                 .taskExecutor(taskExecutor)
                 .build();
     }
